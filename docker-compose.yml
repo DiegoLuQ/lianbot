@@ -27,15 +27,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - bot_lw
-  
-  redis:
-    image: redis
-    restart: always
-    ports:
-      - "6379:6379"
-    depends_on:
-      - bot_lw
-
+      
 networks:
   default:
     name: docker-redis_default # web_private_red_webapps #docker-redis_default #dbs_red_db
