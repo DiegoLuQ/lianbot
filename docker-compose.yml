@@ -30,7 +30,7 @@ services:
 
 networks:
   default:
-    name: docker-redis_default # web_private_red_webapps #docker-redis_default #dbs_red_db
+    name: web_private_red_webapps # docker-redis_default #docker-redis_default #dbs_red_db
     external: true
 
 # networks:
