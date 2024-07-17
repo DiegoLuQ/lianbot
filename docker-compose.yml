@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  bot_lw:
+    build: 
+      context: .
+    # este servicio se puede usar sin nginx pero debes habilitar los puertos
+    # ports:
+    #   - "94:94"
+    command: uvicorn main:app --reload --proxy-headers --host 0.0.0.0 --port 93
+    expose:
+      - 93
+    volumes:
+      - ./app:/app/
+    # environment:
+    #   - SERVER_HOST=mysqldb_mariadb_1
+
+  nginx_lw:
+    image: nginx:latest
+    ports:
+      - "1819:80"
+    environment:
+      - VIRTUAL_PORT=80
+      - VIRTUAL_HOST=wsp-lw.luque.site
+      - LETSENCRYPT_HOST=wsp-lw.luque.site
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - bot_lw
+  
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    depends_on:
+      - bot_lw
+
+networks:
+  default:
+    name: docker-redis_default # web_private_red_webapps #docker-redis_default #dbs_red_db
+    external: true
+
+# networks:
+#   wsp-network:
+#     driver: bridge
