@@ -21,13 +21,13 @@ services:
       - "1819:80"
     environment:
       - VIRTUAL_PORT=80
-      - VIRTUAL_HOST=wsp-lw.luque.site
-      - LETSENCRYPT_HOST=wsp-lw.luque.site
+      - VIRTUAL_HOST=lianweb.luque.site
+      - LETSENCRYPT_HOST=lianweb.luque.site
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - bot_lw
-      
+
 networks:
   default:
     name: docker-redis_default # web_private_red_webapps #docker-redis_default #dbs_red_db

@@ -26,7 +26,7 @@ async def app_lifespan(app: FastAPI):
 app = FastAPI(lifespan=app_lifespan)
 
 
-@app.post('/whatsapp', dependencies=[Depends(rate_limit), Depends(check_blocked)])
+@app.post('/whatsapp_lianweb', dependencies=[Depends(rate_limit), Depends(check_blocked)])
 async def recibir_mensaje(request: Request, response: Response, token: str = Depends(rate_limit)):
     try:
 
@@ -71,10 +71,10 @@ async def recibir_mensaje(request: Request, response: Response, token: str = Dep
 
 @app.get("/")
 def home():
-    return {"hola": sett.token}
+    return {"hola": sett.token, "saludo":"Lianweb"}
 
 
-@app.get("/whatsapp")
+@app.get("/whatsapp_lianweb")
 async def verify_token(request: Request):
     access_token = sett.token
     # Acceder directamente a los parámetros de consulta del objeto request
